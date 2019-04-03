@@ -19,7 +19,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private static final String SCOPE_READ = "read";
     private static final String SCOPE_WRITE = "write";
     private static final String TRUST = "trust";
-    private static final int VALID_FOREVER = -1;
+    private static final int EXPIRATION_TIME_ACCESS_TOKEN = 5;
+    private static final int EXPIRATION_TIME_REFRESH_TOKEN = 2000;
+    @SuppressWarnings("unused")
+	private static final int EXPIRATION_TIME_FOREVER = -1;
 
     @Autowired
     private AuthenticationManager authManager;
@@ -35,8 +38,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .secret(Const.CLIENT_SECRET)
                 .authorizedGrantTypes(GRANT_TYPE_PASSWORD, AUTHORIZATION_CODE, REFRESH_TOKEN)
                 .scopes(SCOPE_READ, SCOPE_WRITE, TRUST)
-                .accessTokenValiditySeconds(VALID_FOREVER)
-                .refreshTokenValiditySeconds(VALID_FOREVER);
+                .accessTokenValiditySeconds(EXPIRATION_TIME_ACCESS_TOKEN)
+                .refreshTokenValiditySeconds(EXPIRATION_TIME_REFRESH_TOKEN);
     }
 
     @Override
